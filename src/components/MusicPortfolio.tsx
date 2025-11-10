@@ -1,8 +1,11 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Music2, Play, ExternalLink } from "lucide-react";
+import { Music2, Music, Youtube, Apple, ShoppingBag, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 const MusicPortfolio = () => {
+  const [activeTab, setActiveTab] = useState<"all" | "singles">("all");
+  const [expandedTrack, setExpandedTrack] = useState<number | null>(null);
+
   const tracks = [
     {
       title: "NEE",
@@ -55,91 +58,141 @@ const MusicPortfolio = () => {
   ];
 
   return (
-    <section id="music" className="section-padding bg-card/30">
-      <div className="container-custom">
-        <div className="text-center mb-16 animate-fade-in">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <Music2 className="w-8 h-8 text-primary animate-glow-pulse" />
-          </div>
-          <h2 className="text-5xl md:text-6xl font-bold mb-4">Music Portfolio</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Explore a selection of tracks showcasing diverse production styles and sonic landscapes.
-          </p>
+    <section id="music" className="section-padding bg-background">
+      <div className="container-custom max-w-6xl">
+        {/* Tabs */}
+        <div className="flex items-center gap-8 mb-8 border-b border-border">
+          <button
+            onClick={() => setActiveTab("all")}
+            className={`pb-4 px-2 text-lg font-semibold transition-colors relative ${
+              activeTab === "all"
+                ? "text-foreground"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Albums
+            {activeTab === "all" && (
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+            )}
+          </button>
+          <button
+            onClick={() => setActiveTab("singles")}
+            className={`pb-4 px-2 text-lg font-semibold transition-colors relative ${
+              activeTab === "singles"
+                ? "text-foreground"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Soundtracks
+            {activeTab === "singles" && (
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+            )}
+          </button>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        {/* Tracks List */}
+        <div className="space-y-0 animate-fade-in">
           {tracks.map((track, index) => (
-            <Card
+            <div
               key={index}
-              className="bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_30px_hsl(var(--primary)/0.2)] animate-fade-in group"
-              style={{ animationDelay: `${index * 0.2}s` }}
+              className="border-b border-border py-8 group hover:bg-card/30 px-6 -mx-6 transition-colors"
             >
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <CardTitle className="flex items-center gap-2 group-hover:text-primary transition-colors">
-                      <Play className="w-5 h-5" />
-                      {track.title}
-                    </CardTitle>
-                    <CardDescription className="mt-1">
-                      {track.description} • {track.year}
-                    </CardDescription>
-                  </div>
+              <div className="flex items-start justify-between gap-6">
+                {/* Left: Title & Description */}
+                <div className="flex-1">
+                  <h3 className="text-3xl md:text-5xl font-bold mb-2 group-hover:text-primary transition-colors">
+                    {track.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {track.description} • {track.year}
+                  </p>
                 </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div 
-                  className="rounded-lg overflow-hidden"
+
+                {/* Right: Platform Icons */}
+                <div className="flex items-center gap-3">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    asChild
+                    className="hover:text-primary transition-colors"
+                  >
+                    <a
+                      href={track.links.spotify}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Listen on Spotify"
+                    >
+                      <Music className="w-5 h-5" />
+                    </a>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    asChild
+                    className="hover:text-primary transition-colors"
+                  >
+                    <a
+                      href={track.links.youtube}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Watch on YouTube"
+                    >
+                      <Youtube className="w-5 h-5" />
+                    </a>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    asChild
+                    className="hover:text-primary transition-colors"
+                  >
+                    <a
+                      href={track.links.apple}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Listen on Apple Music"
+                    >
+                      <Apple className="w-5 h-5" />
+                    </a>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    asChild
+                    className="hover:text-primary transition-colors"
+                  >
+                    <a
+                      href={track.links.amazon}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Listen on Amazon Music"
+                    >
+                      <ShoppingBag className="w-5 h-5" />
+                    </a>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setExpandedTrack(expandedTrack === index ? null : index)}
+                    className="hover:text-primary transition-colors"
+                  >
+                    <ChevronDown
+                      className={`w-5 h-5 transition-transform ${
+                        expandedTrack === index ? "rotate-180" : ""
+                      }`}
+                    />
+                  </Button>
+                </div>
+              </div>
+
+              {/* Expandable Player */}
+              {expandedTrack === index && (
+                <div
+                  className="mt-6 animate-fade-in"
                   dangerouslySetInnerHTML={{ __html: track.embedHtml }}
                 />
-                <div className="flex flex-wrap gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    asChild
-                    className="text-xs"
-                  >
-                    <a href={track.links.spotify} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="w-3 h-3 mr-1" />
-                      Spotify
-                    </a>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    asChild
-                    className="text-xs"
-                  >
-                    <a href={track.links.youtube} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="w-3 h-3 mr-1" />
-                      YouTube
-                    </a>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    asChild
-                    className="text-xs"
-                  >
-                    <a href={track.links.apple} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="w-3 h-3 mr-1" />
-                      Apple Music
-                    </a>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    asChild
-                    className="text-xs"
-                  >
-                    <a href={track.links.amazon} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="w-3 h-3 mr-1" />
-                      Amazon
-                    </a>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+              )}
+            </div>
           ))}
         </div>
       </div>
