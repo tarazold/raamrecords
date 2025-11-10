@@ -1,22 +1,56 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Music2, Play } from "lucide-react";
+import { Music2, Play, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const MusicPortfolio = () => {
   const tracks = [
     {
-      title: "Midnight Echoes",
-      description: "A deep, atmospheric journey through analog synths and organic textures.",
-      embedUrl: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1234567890",
+      title: "NEE",
+      description: "Cinematic | Ambient",
+      year: "2022",
+      embedHtml: '<iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="175" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/song/nee-original/1614594259"></iframe>',
+      links: {
+        spotify: "https://open.spotify.com/track/1SjAwPxnCO0lJYKeQ5IUOY",
+        youtube: "https://www.youtube.com/watch?v=j8g97RNGHJg",
+        amazon: "https://music.amazon.com/tracks/B09VYM1B1W?marketplaceId=A3K6Y4MI8GDYMT&musicTerritory=IN&ref=dm_sh_xvnpr2yr8asKncyJc1toKovaL",
+        apple: "https://music.apple.com/us/song/nee-original/1614594259",
+      }
     },
     {
-      title: "Urban Pulse",
-      description: "Hard-hitting drums with melodic elements. Perfect for high-energy moments.",
-      embedUrl: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1234567891",
+      title: "SAARAM NEE",
+      description: "Romantic | Anthemic",
+      year: "2021",
+      embedHtml: '<iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/yaara-mere-original-single/1601628298"></iframe>',
+      links: {
+        spotify: "https://open.spotify.com/track/77Vli5whn1N6bskoz7pPCT",
+        youtube: "https://youtu.be/nEgw00li--A",
+        amazon: "https://music.amazon.com/tracks/B0BS1J787D?marketplaceId=A3K6Y4MI8GDYMT&musicTerritory=IN&ref=dm_sh_Bj8OuQe4he3ztnuDCeBwCdfry",
+        apple: "https://music.apple.com/us/album/yaara-mere-original-single/1601628298",
+      }
     },
     {
-      title: "Ethereal Dreams",
-      description: "Ambient soundscapes designed for introspection and calm.",
-      embedUrl: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1234567892",
+      title: "Naa Jaane Kyun",
+      description: "Indie | Chill",
+      year: "2021",
+      embedHtml: '<iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="175" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/song/naa-jaane-kyun-original/1587566124"></iframe>',
+      links: {
+        spotify: "https://open.spotify.com/track/6r53dsBDXS38eJm2uumOEf",
+        youtube: "https://youtu.be/U7WfBxhYf0c",
+        amazon: "https://music.amazon.com/tracks/B09BFKZB2V?marketplaceId=A3K6Y4MI8GDYMT&musicTerritory=IN&ref=dm_sh_JG8yRp74OVEDs0DctCMTd0bWf",
+        apple: "https://music.apple.com/us/song/naa-jaane-kyun-original/1587566124",
+      }
+    },
+    {
+      title: "BUDDY SONG",
+      description: "Pop | Feel-good",
+      year: "2021",
+      embedHtml: '<iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/the-buddy-song-original-single/1584294787"></iframe>',
+      links: {
+        spotify: "https://open.spotify.com/track/1V9FujwMo3mTNF1KIX83iz",
+        youtube: "https://youtu.be/eb2hgNggUEk",
+        amazon: "https://music.amazon.com/tracks/B09F9YMBCH?marketplaceId=A3K6Y4MI8GDYMT&musicTerritory=IN&ref=dm_sh_6xYKp8KMVVQTkndhjhI28WAo5",
+        apple: "https://music.apple.com/us/album/the-buddy-song-original-single/1584294787",
+      }
     },
   ];
 
@@ -33,7 +67,7 @@ const MusicPortfolio = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
           {tracks.map((track, index) => (
             <Card
               key={index}
@@ -41,21 +75,68 @@ const MusicPortfolio = () => {
               style={{ animationDelay: `${index * 0.2}s` }}
             >
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 group-hover:text-primary transition-colors">
-                  <Play className="w-5 h-5" />
-                  {track.title}
-                </CardTitle>
-                <CardDescription>{track.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="aspect-video bg-secondary rounded-lg flex items-center justify-center">
-                  <div className="text-center">
-                    <Music2 className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
-                    <p className="text-sm text-muted-foreground">Audio Player Placeholder</p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Connect SoundCloud, Spotify, or upload audio files
-                    </p>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <CardTitle className="flex items-center gap-2 group-hover:text-primary transition-colors">
+                      <Play className="w-5 h-5" />
+                      {track.title}
+                    </CardTitle>
+                    <CardDescription className="mt-1">
+                      {track.description} • {track.year}
+                    </CardDescription>
                   </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div 
+                  className="rounded-lg overflow-hidden"
+                  dangerouslySetInnerHTML={{ __html: track.embedHtml }}
+                />
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    asChild
+                    className="text-xs"
+                  >
+                    <a href={track.links.spotify} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="w-3 h-3 mr-1" />
+                      Spotify
+                    </a>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    asChild
+                    className="text-xs"
+                  >
+                    <a href={track.links.youtube} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="w-3 h-3 mr-1" />
+                      YouTube
+                    </a>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    asChild
+                    className="text-xs"
+                  >
+                    <a href={track.links.apple} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="w-3 h-3 mr-1" />
+                      Apple Music
+                    </a>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    asChild
+                    className="text-xs"
+                  >
+                    <a href={track.links.amazon} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="w-3 h-3 mr-1" />
+                      Amazon
+                    </a>
+                  </Button>
                 </div>
               </CardContent>
             </Card>
