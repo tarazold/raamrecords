@@ -7,10 +7,23 @@ const MusicPortfolio = () => {
 
   const tracks = [
     {
+      title: "NEE",
+      description: "Cinematic | Ambient",
+      year: "2022",
+      embedUrl: "https://embed.music.apple.com/us/song/nee-original/1614594259?app=music&autoplay=true",
+      cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&q=80",
+      links: {
+        spotify: "https://open.spotify.com/track/1SjAwPxnCO0lJYKeQ5IUOY",
+        youtube: "https://www.youtube.com/watch?v=j8g97RNGHJg",
+        amazon: "https://music.amazon.com/tracks/B09VYM1B1W?marketplaceId=A3K6Y4MI8GDYMT&musicTerritory=IN&ref=dm_sh_xvnpr2yr8asKncyJc1toKovaL",
+        apple: "https://music.apple.com/us/song/nee-original/1614594259",
+      }
+    },
+    {
       title: "Saaram Nee",
       description: "Romantic | Anthemic",
       year: "2021",
-      embedUrl: "https://open.spotify.com/embed/track/77Vli5whn1N6bskoz7pPCT?utm_source=generator&theme=0",
+      embedUrl: "https://open.spotify.com/embed/track/77Vli5whn1N6bskoz7pPCT?utm_source=generator&theme=0&autoplay=1",
       cover: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400&q=80",
       links: {
         spotify: "https://open.spotify.com/track/77Vli5whn1N6bskoz7pPCT",
@@ -20,11 +33,24 @@ const MusicPortfolio = () => {
       }
     },
     {
+      title: "Naa Jaane Kyun",
+      description: "Indie | Chill",
+      year: "2021",
+      embedUrl: "https://embed.music.apple.com/us/song/naa-jaane-kyun-original/1587566124?app=music&autoplay=true",
+      cover: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80",
+      links: {
+        spotify: "https://open.spotify.com/track/6r53dsBDXS38eJm2uumOEf",
+        youtube: "https://youtu.be/U7WfBxhYf0c",
+        amazon: "https://music.amazon.com/tracks/B09BFKZB2V?marketplaceId=A3K6Y4MI8GDYMT&musicTerritory=IN&ref=dm_sh_JG8yRp74OVEDs0DctCMTd0bWf",
+        apple: "https://music.apple.com/us/song/naa-jaane-kyun-original/1587566124",
+      }
+    },
+    {
       title: "Buddy (The Buddy Song)",
       description: "Pop | Feel-good",
       year: "2021",
-      embedUrl: "https://embed.music.apple.com/us/song/the-buddy-song-original/1584294789",
-      cover: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80",
+      embedUrl: "https://embed.music.apple.com/us/song/the-buddy-song-original/1584294789?app=music&autoplay=true",
+      cover: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&q=80",
       links: {
         spotify: "https://open.spotify.com/track/1V9FujwMo3mTNF1KIX83iz",
         youtube: "https://youtu.be/eb2hgNggUEk",
@@ -47,7 +73,7 @@ const MusicPortfolio = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">Music</h2>
           
           {/* Tracks Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 animate-fade-in pb-32">
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 sm:gap-6 animate-fade-in pb-32">
             {tracks.map((track, index) => (
               <div
                 key={index}
@@ -153,13 +179,21 @@ const MusicPortfolio = () => {
 
       {/* Sticky Bottom Player */}
       {currentEmbed && (
-        <div className="fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-lg border-t border-border p-4 animate-fade-in">
-          <div className="container-custom max-w-2xl mx-auto">
+        <div className="fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-lg border-t border-border p-3 sm:p-4 animate-fade-in">
+          <div className="container-custom max-w-2xl mx-auto relative">
+            <button
+              onClick={() => setCurrentEmbed(null)}
+              className="absolute -top-2 right-0 w-8 h-8 rounded-full bg-background border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors z-10"
+              aria-label="Close player"
+            >
+              ×
+            </button>
             <iframe
+              key={currentEmbed}
               src={currentEmbed}
               allow="autoplay; encrypted-media; fullscreen; clipboard-write"
               frameBorder="0"
-              className="w-full h-20 rounded-lg"
+              className="w-full h-20 sm:h-24 rounded-lg"
               sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
             />
           </div>
