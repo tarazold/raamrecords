@@ -1,51 +1,52 @@
 import { Button } from "@/components/ui/button";
-import { ArrowDown } from "lucide-react";
-import heroBg from "@/assets/hero-bg.jpg";
 
 const Hero = () => {
   const scrollToMusic = () => {
     document.getElementById("music")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollToContact = () => {
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{
-        backgroundImage: `url(${heroBg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
+      {/* Subtle radial vignette */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.6)_100%)]" />
 
       {/* Content */}
-      <div className="relative z-10 container-custom text-center px-6 animate-fade-in-slow">
-        <h1 className="text-6xl md:text-8xl font-bold mb-6 glow">
-          Master <span className="text-gradient">Pete</span>
+      <div className="relative z-10 text-center px-6 animate-fade-in-slow max-w-5xl mx-auto">
+        <h1 
+          className="text-7xl sm:text-8xl md:text-9xl font-extralight tracking-wider mb-6"
+          style={{ fontFamily: "'Raleway', sans-serif", letterSpacing: '0.15em' }}
+        >
+          SRIRAM VENKATESH
         </h1>
-        <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto">
-          Crafting sonic experiences that transcend boundaries. Producer, mixer, and sound architect.
+        <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-12 font-light tracking-wide">
+          Music Producer · Sound Designer · Audio Engineer
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button variant="hero" size="lg" onClick={scrollToMusic}>
-            Explore My Work
+          <Button 
+            variant="default" 
+            size="lg" 
+            onClick={scrollToMusic}
+            className="border border-primary/50 hover:border-primary"
+          >
+            Explore Music
           </Button>
-          <Button variant="outline" size="lg" asChild>
-            <a href="#contact">Get In Touch</a>
+          <Button 
+            variant="outline" 
+            size="lg" 
+            onClick={scrollToContact}
+            className="border border-border hover:border-foreground"
+          >
+            Get in Touch
           </Button>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <button
-        onClick={scrollToMusic}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer bg-transparent border-none"
-        aria-label="Scroll down"
-      >
-        <ArrowDown className="w-8 h-8 text-primary" />
-      </button>
     </section>
   );
 };

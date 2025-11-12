@@ -19,28 +19,20 @@ const About = () => {
 
           {/* Content */}
           <div className="animate-fade-in-slow order-1 md:order-2">
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">About Master Pete</h2>
-            <div className="space-y-4 text-muted-foreground text-lg">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">The Artist</h2>
+            <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
               <p>
-                With over a decade of experience in music production, I've dedicated my life to crafting
-                immersive sonic experiences that resonate with listeners on a deep emotional level.
+                Sriram Venkatesh is a Music Producer, Composer, and Sound Engineer from Chennai, India, 
+                with over a decade of experience in the film and independent music industry. A certified 
+                Music Producer from Beatfactory Academy, Mumbai, he has worked on film scores, commercials, 
+                and independent projects that blend classical composition with modern production.
               </p>
               <p>
-                My approach combines technical precision with artistic intuition. Every project is an
-                opportunity to push boundaries and explore new sonic territories, from intimate acoustic
-                arrangements to expansive electronic soundscapes.
+                In 2022, he launched his independent label, <strong className="text-foreground">Raam Records</strong>, 
+                featuring his original releases now streaming across all major platforms. Sriram's music stands 
+                out for its emotional depth, technical precision, and a distinctive sound that bridges tradition 
+                and innovation.
               </p>
-              <p>
-                Working from my custom-designed studio, I use a blend of vintage analog gear and
-                cutting-edge digital tools to create productions that are both timeless and contemporary.
-              </p>
-              <div className="pt-4">
-                <h3 className="text-2xl font-bold text-foreground mb-3">Philosophy</h3>
-                <p className="italic">
-                  "Music is emotion translated into sound. My role is to ensure that translation is as
-                  pure and powerful as possible."
-                </p>
-              </div>
             </div>
           </div>
         </div>

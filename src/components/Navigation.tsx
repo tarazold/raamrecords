@@ -18,6 +18,7 @@ const Navigation = () => {
     { label: "Home", href: "#home" },
     { label: "Music", href: "#music" },
     { label: "About", href: "#about" },
+    { label: "Composer's Works", href: "#works" },
     { label: "Contact", href: "#contact" },
   ];
 
@@ -37,9 +38,10 @@ const Navigation = () => {
         <div className="flex items-center justify-between">
           <button
             onClick={() => scrollToSection("#home")}
-            className="text-2xl font-bold text-gradient cursor-pointer bg-transparent border-none"
+            className="text-xl font-light tracking-wide cursor-pointer bg-transparent border-none"
+            style={{ fontFamily: "'Raleway', sans-serif" }}
           >
-            Master Pete
+            SRIRAM VENKATESH
           </button>
 
           {/* Desktop Navigation */}
