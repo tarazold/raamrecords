@@ -1,6 +1,6 @@
-import { Play, Music, Youtube, Apple, ShoppingBag } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Play } from "lucide-react";
 import { useState } from "react";
+import { SiSpotify, SiYoutube, SiAmazonmusic, SiApplemusic } from "react-icons/si";
 
 const MusicPortfolio = () => {
   const [currentEmbed, setCurrentEmbed] = useState<string | null>(null);
@@ -83,14 +83,69 @@ const MusicPortfolio = () => {
                   </p>
                 </div>
 
-                {/* Play Button - Right */}
-                <button
-                  onClick={() => handlePlay(track.embedUrl, track.title)}
-                  className="w-14 h-14 rounded-full bg-primary/90 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all flex-shrink-0 ml-6"
-                  aria-label={`Play ${track.title}`}
-                >
-                  <Play className="w-6 h-6 text-primary-foreground ml-1" fill="currentColor" />
-                </button>
+                {/* Platform Links & Play Button - Right */}
+                <div className="flex items-center gap-4 flex-shrink-0 ml-6">
+                  {/* Spotify Link */}
+                  <a
+                    href={track.links.spotify}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    aria-label={`Listen to ${track.title} on Spotify`}
+                  >
+                    <SiSpotify className="w-5 h-5" />
+                  </a>
+
+                  {/* Play Button */}
+                  <button
+                    onClick={() => handlePlay(track.embedUrl, track.title)}
+                    className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-all"
+                    aria-label={`Play ${track.title}`}
+                  >
+                    <Play className="w-4 h-4 text-foreground ml-0.5" fill="currentColor" />
+                  </button>
+
+                  {/* More Options Placeholder */}
+                  <button
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    aria-label="More options"
+                  >
+                    <span className="text-xl">···</span>
+                  </button>
+
+                  {/* YouTube Link */}
+                  <a
+                    href={track.links.youtube}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    aria-label={`Watch ${track.title} on YouTube`}
+                  >
+                    <SiYoutube className="w-5 h-5" />
+                  </a>
+
+                  {/* Apple Music Link */}
+                  <a
+                    href={track.links.apple}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    aria-label={`Listen to ${track.title} on Apple Music`}
+                  >
+                    <SiApplemusic className="w-5 h-5" />
+                  </a>
+
+                  {/* Amazon Music Link */}
+                  <a
+                    href={track.links.amazon}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    aria-label={`Listen to ${track.title} on Amazon Music`}
+                  >
+                    <SiAmazonmusic className="w-5 h-5" />
+                  </a>
+                </div>
               </div>
             ))}
           </div>
