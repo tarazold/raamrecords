@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import MusicPortfolio from "@/components/MusicPortfolio";
 import About from "@/components/About";
+import FilmShowcase from "@/components/FilmShowcase";
 import ComposerWorks from "@/components/ComposerWorks";
 import Contact from "@/components/Contact";
 
@@ -12,6 +13,7 @@ const Index = () => {
       <Hero />
       <MusicPortfolio />
       <About />
+      <FilmShowcase />
       <ComposerWorks />
       <Contact />
       
