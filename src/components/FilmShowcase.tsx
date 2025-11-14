@@ -4,18 +4,15 @@ import eerapadhamPoster from "@/assets/eerapadham-poster.jpg";
 const FilmShowcase = () => {
   const films = [
     {
-      title: "Sorry Day",
-      year: "2022",
-      role: "Worked along with Samrat Awasthi",
-      poster: sorryDayPoster,
-      imdbUrl: "https://www.imdb.com/title/tt17048292/",
-    },
-    {
-      title: "Eerapadham Kattru Mazhai",
-      year: "Upcoming",
-      role: "Composer",
+      title: "Eerapadham Kaatru Mazhai",
       poster: eerapadhamPoster,
       imdbUrl: "https://www.imdb.com/title/tt30576871/",
+    },
+    {
+      title: "Sorry Day",
+      subtitle: "Worked alongside Composer Samrat Awasthi",
+      poster: sorryDayPoster,
+      imdbUrl: "https://www.imdb.com/title/tt17048292/",
     },
   ];
 
@@ -26,35 +23,46 @@ const FilmShowcase = () => {
           className="text-4xl md:text-5xl font-extralight mb-4 text-center text-white"
           style={{ fontFamily: "'Raleway', sans-serif", letterSpacing: '0.15em' }}
         >
-          FILM WORKS
+          FILMS WORKED
         </h2>
         <div className="w-24 h-0.5 bg-white mx-auto mb-16"></div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
           {films.map((film, index) => (
-            <a
-              key={index}
-              href={film.imdbUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group"
-            >
-              <div className="relative overflow-hidden bg-card rounded-lg transition-transform duration-300 hover:scale-105">
-                <div className="aspect-[3/4] overflow-hidden">
-                  <img
-                    src={film.poster}
-                    alt={`${film.title} poster`}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
+            <div key={index} className="flex flex-col items-center">
+              <a
+                href={film.imdbUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group w-full transition-all duration-300 hover:scale-[1.03]"
+                style={{ filter: 'drop-shadow(0 0 0px rgba(0,0,0,0))' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.filter = 'drop-shadow(0 10px 30px rgba(0,0,0,0.5))';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.filter = 'drop-shadow(0 0 0px rgba(0,0,0,0))';
+                }}
+              >
+                <div className="relative overflow-hidden rounded-lg">
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img
+                      src={film.poster}
+                      alt={`${film.title} poster`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <h3 className="text-2xl font-bold mb-1">{film.title}</h3>
-                  <p className="text-sm text-gray-300 mb-1">{film.year}</p>
-                  <p className="text-sm text-gray-400">{film.role}</p>
-                </div>
-              </div>
-            </a>
+              </a>
+              <h3 
+                className="text-2xl md:text-3xl font-extralight mt-6 text-center text-white"
+                style={{ fontFamily: "'Raleway', sans-serif", letterSpacing: '0.10em' }}
+              >
+                {film.title}
+              </h3>
+              {film.subtitle && (
+                <p className="text-sm text-gray-400 mt-2 text-center">{film.subtitle}</p>
+              )}
+            </div>
           ))}
         </div>
       </div>
