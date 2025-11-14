@@ -3,7 +3,6 @@ import Hero from "@/components/Hero";
 import MusicPortfolio from "@/components/MusicPortfolio";
 import About from "@/components/About";
 import FilmShowcase from "@/components/FilmShowcase";
-import ComposerWorks from "@/components/ComposerWorks";
 import Contact from "@/components/Contact";
 
 const Index = () => {
@@ -14,7 +13,6 @@ const Index = () => {
       <MusicPortfolio />
       <About />
       <FilmShowcase />
-      <ComposerWorks />
       <Contact />
       
       {/* Footer */}
