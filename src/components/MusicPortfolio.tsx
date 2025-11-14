@@ -1,17 +1,16 @@
-import { Play, Pause } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { Play } from "lucide-react";
+import { useState } from "react";
 import { SiSpotify, SiYoutube, SiAmazonmusic, SiApplemusic } from "react-icons/si";
 
 const MusicPortfolio = () => {
-  const [playingTrack, setPlayingTrack] = useState<number | null>(null);
-  const audioRefs = useRef<(HTMLAudioElement | null)[]>([]);
+  const [currentEmbed, setCurrentEmbed] = useState<string | null>(null);
 
   const tracks = [
     {
       title: "NEE",
       genre: "EDM",
       duration: "3:50",
-      previewUrl: "https://p.scdn.co/mp3-preview/YOUR_PREVIEW_URL_HERE", // Replace with actual Spotify preview URL
+      embedUrl: "https://open.spotify.com/embed/track/1SjAwPxnCO0lJYKeQ5IUOY?utm_source=generator&autoplay=1",
       links: {
         spotify: "https://open.spotify.com/track/1SjAwPxnCO0lJYKeQ5IUOY",
         youtube: "https://www.youtube.com/watch?v=j8g97RNGHJg",
@@ -23,7 +22,7 @@ const MusicPortfolio = () => {
       title: "SAARAM NEE",
       genre: "Pop / Indie Fusion",
       duration: "3:44",
-      previewUrl: "https://p.scdn.co/mp3-preview/YOUR_PREVIEW_URL_HERE", // Replace with actual Spotify preview URL
+      embedUrl: "https://open.spotify.com/embed/track/77Vli5whn1N6bskoz7pPCT?utm_source=generator&autoplay=1",
       links: {
         spotify: "https://open.spotify.com/track/77Vli5whn1N6bskoz7pPCT",
         youtube: "https://youtu.be/nEgw00li--A",
@@ -35,7 +34,7 @@ const MusicPortfolio = () => {
       title: "NAA JAANE KYUN",
       genre: "Indie Pop",
       duration: "5:44",
-      previewUrl: "https://p.scdn.co/mp3-preview/YOUR_PREVIEW_URL_HERE", // Replace with actual Spotify preview URL
+      embedUrl: "https://open.spotify.com/embed/track/371VHqmR785b6KlYCWTO94?utm_source=generator&autoplay=1",
       links: {
         spotify: "https://open.spotify.com/track/371VHqmR785b6KlYCWTO94",
         youtube: "https://youtu.be/U7WfBxhYf0c",
@@ -47,7 +46,7 @@ const MusicPortfolio = () => {
       title: "BUDDY SONG",
       genre: "Folk",
       duration: "4:05",
-      previewUrl: "https://p.scdn.co/mp3-preview/YOUR_PREVIEW_URL_HERE", // Replace with actual Spotify preview URL
+      embedUrl: "https://open.spotify.com/embed/track/1V9FujwMo3mTNF1KIX83iz?utm_source=generator&autoplay=1",
       links: {
         spotify: "https://open.spotify.com/track/1V9FujwMo3mTNF1KIX83iz",
         youtube: "https://youtu.be/eb2hgNggUEk",
@@ -57,38 +56,9 @@ const MusicPortfolio = () => {
     },
   ];
 
-  const handlePlayPause = (index: number) => {
-    const audio = audioRefs.current[index];
-    if (!audio) return;
-
-    // Pause all other tracks
-    audioRefs.current.forEach((a, i) => {
-      if (a && i !== index) {
-        a.pause();
-        a.currentTime = 0;
-      }
-    });
-
-    // Toggle current track
-    if (playingTrack === index) {
-      audio.pause();
-      setPlayingTrack(null);
-    } else {
-      audio.play();
-      setPlayingTrack(index);
-    }
+  const handlePreviewPlay = (embedUrl: string) => {
+    setCurrentEmbed(embedUrl);
   };
-
-  // Handle audio ended event
-  useEffect(() => {
-    audioRefs.current.forEach((audio, index) => {
-      if (audio) {
-        audio.onended = () => {
-          setPlayingTrack(null);
-        };
-      }
-    });
-  }, []);
 
   return (
     <section id="music" className="section-padding bg-black">
@@ -103,13 +73,6 @@ const MusicPortfolio = () => {
               key={index}
               className="group relative flex items-center justify-between py-8 px-6 border-b border-white/10 hover:bg-white/5 transition-all"
             >
-              {/* Hidden Audio Element */}
-              <audio
-                ref={(el) => (audioRefs.current[index] = el)}
-                src={track.previewUrl}
-                preload="metadata"
-              />
-
               {/* Track Info - Left */}
               <div className="flex-1">
                 <h3 className="text-4xl md:text-5xl font-bold mb-2 tracking-tight text-white">{track.title}</h3>
@@ -122,15 +85,11 @@ const MusicPortfolio = () => {
               <div className="flex items-center gap-5 flex-shrink-0 ml-6">
                 {/* Preview Play Button - FIRST */}
                 <button
-                  onClick={() => handlePlayPause(index)}
+                  onClick={() => handlePreviewPlay(track.embedUrl)}
                   className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all border border-white/20"
-                  aria-label={`${playingTrack === index ? 'Pause' : 'Play'} ${track.title}`}
+                  aria-label={`Play preview of ${track.title}`}
                 >
-                  {playingTrack === index ? (
-                    <Pause className="w-4 h-4 text-white" fill="currentColor" />
-                  ) : (
-                    <Play className="w-4 h-4 text-white ml-0.5" fill="currentColor" />
-                  )}
+                  <Play className="w-4 h-4 text-white ml-0.5" fill="currentColor" />
                 </button>
 
                 {/* Spotify Link */}
@@ -188,6 +147,31 @@ const MusicPortfolio = () => {
             </div>
           ))}
         </div>
+
+        {/* Sticky Embedded Player */}
+        {currentEmbed && (
+          <div className="fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-sm border-t border-white/10 p-4 z-50 animate-fade-in">
+            <div className="container-custom max-w-5xl mx-auto relative">
+              <button
+                onClick={() => setCurrentEmbed(null)}
+                className="absolute -top-2 right-0 text-gray-400 hover:text-white transition-colors text-2xl leading-none"
+                aria-label="Close player"
+              >
+                ×
+              </button>
+              <iframe
+                key={currentEmbed}
+                src={currentEmbed}
+                width="100%"
+                height="152"
+                frameBorder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                className="rounded-lg"
+              ></iframe>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
