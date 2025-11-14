@@ -7,6 +7,18 @@ const MusicPortfolio = () => {
 
   const tracks = [
     {
+      title: "YAARA MERE",
+      genre: "Pop",
+      duration: "3:44",
+      embedUrl: "https://open.spotify.com/embed/track/09mkYZZTF5dJ2IUUonqnXT?utm_source=generator&autoplay=1&theme=0",
+      links: {
+        spotify: "https://open.spotify.com/track/09mkYZZTF5dJ2IUUonqnXT",
+        youtube: "https://youtu.be/VCN5JZpiRtQ",
+        amazon: "https://music.amazon.in/albums/B09NY5M3X3?trackAsin=B09NY6L7NL",
+        apple: "https://music.apple.com/us/song/yaara-mere-original/1601628305",
+      }
+    },
+    {
       title: "NEE",
       genre: "EDM",
       duration: "3:50",
@@ -63,7 +75,12 @@ const MusicPortfolio = () => {
   return (
     <section id="music" className="section-padding bg-black">
       <div className="container-custom max-w-6xl">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-center tracking-wider text-white">POPULAR RELEASES</h2>
+        <h2 
+          className="text-4xl md:text-5xl font-extralight mb-4 text-center text-white"
+          style={{ fontFamily: "'Raleway', sans-serif", letterSpacing: '0.15em' }}
+        >
+          ORIGINAL SINGLES
+        </h2>
         <div className="w-24 h-0.5 bg-white mx-auto mb-16"></div>
         
         {/* Tracks List */}
