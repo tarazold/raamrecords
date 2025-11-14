@@ -92,7 +92,12 @@ const MusicPortfolio = () => {
             >
               {/* Track Info - Left */}
               <div className="flex-1">
-                <h3 className="text-4xl md:text-5xl font-bold mb-2 tracking-tight text-white">{track.title}</h3>
+                <h3 
+                  className="text-4xl md:text-5xl font-extralight mb-2 tracking-tight text-white"
+                  style={{ fontFamily: "'Raleway', sans-serif", letterSpacing: '0.10em' }}
+                >
+                  {track.title}
+                </h3>
                 <p className="text-sm text-gray-400">
                   {track.genre} · {track.duration}
                 </p>

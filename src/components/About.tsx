@@ -3,7 +3,7 @@ import { Headphones, AudioWaveform, Radio } from "lucide-react";
 
 const About = () => {
   return (
-    <section id="about" className="section-padding">
+    <section id="about" className="section-padding bg-black">
       <div className="container-custom">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Image */}
