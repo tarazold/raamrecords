@@ -33,7 +33,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="section-padding bg-card/30">
+    <section id="contact" className="section-padding bg-black">
       <div className="container-custom max-w-4xl">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-5xl md:text-6xl font-bold mb-4">Let's Collaborate</h2>

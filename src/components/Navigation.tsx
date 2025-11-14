@@ -18,7 +18,7 @@ const Navigation = () => {
     { label: "Home", href: "#home" },
     { label: "Music", href: "#music" },
     { label: "About", href: "#about" },
-    { label: "Composer's Works", href: "#works" },
+    { label: "Films Worked", href: "#films" },
     { label: "Contact", href: "#contact" },
   ];
 
@@ -31,7 +31,7 @@ const Navigation = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-card/95 backdrop-blur-lg shadow-lg" : "bg-transparent"
+        isScrolled ? "bg-black/95 backdrop-blur-lg shadow-lg border-b border-white/10" : "bg-transparent"
       }`}
     >
       <div className="container-custom px-6 py-4">
