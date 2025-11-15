@@ -5,12 +5,13 @@ const FilmShowcase = () => {
   const films = [
     {
       title: "Eerapadham Kaatru Mazhai",
+      subtitle: "Songs & Background Score",
       poster: eerapadhamPoster,
       imdbUrl: "https://www.imdb.com/title/tt30576871/",
     },
     {
       title: "Sorry Day",
-      subtitle: "Worked alongside Composer Samrat Awasthi",
+      subtitle: "Background Score alongside Samrat Awasthi",
       poster: sorryDayPoster,
       imdbUrl: "https://www.imdb.com/title/tt17048292/",
     },
@@ -23,7 +24,7 @@ const FilmShowcase = () => {
           className="text-4xl md:text-5xl font-extralight mb-4 text-center text-white"
           style={{ fontFamily: "'Raleway', sans-serif", letterSpacing: '0.15em' }}
         >
-          FILMS WORKED
+          FILMOGRAPHY
         </h2>
         <div className="w-24 h-0.5 bg-white mx-auto mb-16"></div>
         

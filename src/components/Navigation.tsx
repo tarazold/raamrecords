@@ -18,7 +18,7 @@ const Navigation = () => {
     { label: "Home", href: "#home" },
     { label: "Music", href: "#music" },
     { label: "About", href: "#about" },
-    { label: "Films Worked", href: "#films" },
+    { label: "Filmography", href: "#films" },
     { label: "Contact", href: "#contact" },
   ];
 
