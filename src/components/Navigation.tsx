@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -12,6 +13,33 @@ const Navigation = () => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = ["home", "music", "about", "films", "contact"];
+    const observerOptions = {
+      root: null,
+      rootMargin: "-50% 0px -50% 0px",
+      threshold: 0
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          setActiveSection(id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    sections.forEach((section) => {
+      const element = document.getElementById(section);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const navItems = [
@@ -50,7 +78,11 @@ const Navigation = () => {
               <button
                 key={item.label}
                 onClick={() => scrollToSection(item.href)}
-                className="text-foreground hover:text-primary transition-colors cursor-pointer bg-transparent border-none text-base font-extralight"
+                className={`${
+                  activeSection === item.href.substring(1) 
+                    ? "text-primary" 
+                    : "text-foreground"
+                } hover:text-primary transition-colors cursor-pointer bg-transparent border-none text-base font-extralight`}
                 style={{ fontFamily: "'Raleway', sans-serif", letterSpacing: '0.10em' }}
               >
                 {item.label}
@@ -77,7 +109,11 @@ const Navigation = () => {
                 <button
                   key={item.label}
                   onClick={() => scrollToSection(item.href)}
-                  className="text-foreground hover:text-primary transition-colors text-left cursor-pointer bg-transparent border-none text-base py-2 font-extralight"
+                  className={`${
+                    activeSection === item.href.substring(1) 
+                      ? "text-primary" 
+                      : "text-foreground"
+                  } hover:text-primary transition-colors text-left cursor-pointer bg-transparent border-none text-base py-2 font-extralight`}
                   style={{ fontFamily: "'Raleway', sans-serif", letterSpacing: '0.10em' }}
                 >
                   {item.label}
