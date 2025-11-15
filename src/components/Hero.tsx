@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import heroBg from "@/assets/hero-bg.jpg";
 
 const Hero = () => {
   const scrollToMusic = () => {
@@ -14,8 +15,19 @@ const Hero = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
     >
-      {/* Subtle radial vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.6)_100%)]" />
+      {/* Animated background image */}
+      <div 
+        className="absolute inset-0 animate-slow-pan"
+        style={{
+          backgroundImage: `url(${heroBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          opacity: 0.4
+        }}
+      />
+      
+      {/* Overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 animate-fade-in-slow max-w-5xl mx-auto">
