@@ -50,7 +50,8 @@ const Navigation = () => {
               <button
                 key={item.label}
                 onClick={() => scrollToSection(item.href)}
-                className="text-foreground hover:text-primary transition-colors cursor-pointer bg-transparent border-none text-base"
+                className="text-foreground hover:text-primary transition-colors cursor-pointer bg-transparent border-none text-base font-extralight"
+                style={{ fontFamily: "'Raleway', sans-serif", letterSpacing: '0.10em' }}
               >
                 {item.label}
               </button>
@@ -76,7 +77,8 @@ const Navigation = () => {
                 <button
                   key={item.label}
                   onClick={() => scrollToSection(item.href)}
-                  className="text-foreground hover:text-primary transition-colors text-left cursor-pointer bg-transparent border-none text-base py-2"
+                  className="text-foreground hover:text-primary transition-colors text-left cursor-pointer bg-transparent border-none text-base py-2 font-extralight"
+                  style={{ fontFamily: "'Raleway', sans-serif", letterSpacing: '0.10em' }}
                 >
                   {item.label}
                 </button>

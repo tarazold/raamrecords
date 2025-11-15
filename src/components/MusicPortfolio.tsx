@@ -93,8 +93,19 @@ const MusicPortfolio = () => {
               {/* Track Info - Left */}
               <div className="flex-1">
                 <h3 
-                  className="text-4xl md:text-5xl font-extralight mb-2 tracking-tight text-white"
-                  style={{ fontFamily: "'Raleway', sans-serif", letterSpacing: '0.10em' }}
+                  className="text-4xl md:text-5xl font-extralight mb-2 tracking-tight text-white transition-all duration-300 hover:scale-[1.03] inline-block"
+                  style={{ 
+                    fontFamily: "'Raleway', sans-serif", 
+                    letterSpacing: '0.10em',
+                    filter: 'drop-shadow(0 0 0px rgba(0,0,0,0))',
+                    cursor: 'default'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.filter = 'drop-shadow(0 10px 30px rgba(0,0,0,0.5))';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.filter = 'drop-shadow(0 0 0px rgba(0,0,0,0))';
+                  }}
                 >
                   {track.title}
                 </h3>
