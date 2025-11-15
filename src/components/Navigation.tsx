@@ -44,7 +44,7 @@ const Navigation = () => {
 
   const navItems = [
     { label: "Home", href: "#home" },
-    { label: "Music", href: "#music" },
+    { label: "Original Singles", href: "#music" },
     { label: "About", href: "#about" },
     { label: "Filmography", href: "#films" },
     { label: "Contact", href: "#contact" },
