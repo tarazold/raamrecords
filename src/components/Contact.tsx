@@ -26,10 +26,9 @@ const Contact = () => {
   };
 
   const socialLinks = [
-    { icon: Instagram, label: "Instagram", href: "#", color: "hover:text-pink-500" },
-    { icon: Twitter, label: "Twitter", href: "#", color: "hover:text-blue-400" },
-    { icon: Music, label: "SoundCloud", href: "#", color: "hover:text-orange-500" },
-    { icon: Mail, label: "Email", href: "mailto:contact@masterpete.com", color: "hover:text-primary" },
+    { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/_raam96/", handle: "@_raam96", color: "hover:text-pink-500" },
+    { icon: Twitter, label: "X (Twitter)", href: "https://twitter.com/raam_records", handle: "@raam_records", color: "hover:text-blue-400" },
+    { icon: Mail, label: "Email", href: "mailto:Raam19.music@gmail.com", handle: "Raam19.music@gmail.com", color: "hover:text-primary" },
   ];
 
   return (
@@ -90,22 +89,36 @@ const Contact = () => {
             </CardContent>
           </Card>
 
-          {/* Social Links */}
-          <div className="flex flex-col justify-center animate-fade-in-slow">
-            <h3 className="text-2xl font-bold mb-6">Connect With Me</h3>
-            <div className="grid grid-cols-2 gap-4">
+          {/* Contact Details */}
+          <div className="flex flex-col justify-center animate-fade-in-slow space-y-6">
+            <h3 className="text-2xl font-bold mb-2">Connect With Me</h3>
+            
+            {/* Social Links */}
+            <div className="space-y-4">
               {socialLinks.map((social, index) => (
                 <a
                   key={index}
                   href={social.href}
-                  className={`flex items-center gap-3 p-4 rounded-lg bg-secondary hover:bg-secondary/80 transition-all duration-300 ${social.color} group`}
+                  className={`flex items-center gap-4 p-4 rounded-lg bg-secondary hover:bg-secondary/80 transition-all duration-300 ${social.color} group`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <social.icon className="w-6 h-6 transition-transform group-hover:scale-110" />
-                  <span className="font-medium">{social.label}</span>
+                  <social.icon className="w-6 h-6 transition-transform group-hover:scale-110 flex-shrink-0" />
+                  <div className="flex flex-col">
+                    <span className="font-medium">{social.label}</span>
+                    <span className="text-sm text-muted-foreground">{social.handle}</span>
+                  </div>
                 </a>
               ))}
+              
+              {/* Phone/WhatsApp */}
+              <div className="flex items-center gap-4 p-4 rounded-lg bg-secondary">
+                <Mail className="w-6 h-6 flex-shrink-0" />
+                <div className="flex flex-col">
+                  <span className="font-medium">Phone (WhatsApp)</span>
+                  <span className="text-sm text-muted-foreground">9952025098</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
