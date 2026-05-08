@@ -1,19 +1,22 @@
 import { Play } from "lucide-react";
-import { useState } from "react";
 import { SiSoundcloud } from "react-icons/si";
 
-const ScoreSamples = () => {
-  const [currentEmbed, setCurrentEmbed] = useState<string | null>(null);
+interface ScoreSamplesProps {
+  currentEmbed: { url: string; title: string } | null;
+  setCurrentEmbed: (embed: { url: string; title: string } | null) => void;
+}
+
+const ScoreSamples = ({ currentEmbed, setCurrentEmbed }: ScoreSamplesProps) => {
 
   const tracks = [
     {
       title: "RAPAAN KUTHU",
-      url: "https://soundcloud.com/raamrecords21/rapaan-kuthu",
+      url: "https://soundcloud.com/raamrecords21/rapankuthu",
       shareUrl: "https://on.soundcloud.com/UWnXZss4Z5bfZdGbXw",
     },
     {
       title: "THE NINTH HYMN",
-      url: "https://soundcloud.com/raamrecords21/the-ninth-hymn",
+      url: "https://soundcloud.com/raamrecords21/the-antagonist",
       shareUrl: "https://on.soundcloud.com/V63S9RV2AuVsDvtgGx",
     },
     {
@@ -29,7 +32,7 @@ const ScoreSamples = () => {
     },
     {
       title: "IN HER MEMORIES",
-      url: "https://soundcloud.com/raamrecords21/in-her-memories",
+      url: "https://soundcloud.com/raamrecords21/her-memories",
       shareUrl: "https://on.soundcloud.com/TSdQHqiUpaWrsSFXqO",
     },
   ];
@@ -37,10 +40,10 @@ const ScoreSamples = () => {
   const buildEmbed = (trackUrl: string) =>
     `https://w.soundcloud.com/player/?url=${encodeURIComponent(
       trackUrl
-    )}&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&color=%23ffffff`;
+    )}&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false&color=%23ff3b7f`;
 
-  const handlePreviewPlay = (trackUrl: string) => {
-    setCurrentEmbed(buildEmbed(trackUrl));
+  const handlePreviewPlay = (trackUrl: string, title: string) => {
+    setCurrentEmbed({ url: buildEmbed(trackUrl), title });
   };
 
   return (
@@ -84,7 +87,7 @@ const ScoreSamples = () => {
 
               <div className="flex items-center gap-5 flex-shrink-0 ml-6">
                 <button
-                  onClick={() => handlePreviewPlay(track.url)}
+                  onClick={() => handlePreviewPlay(track.url, track.title)}
                   className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all border border-white/20"
                   aria-label={`Play preview of ${track.title}`}
                 >
@@ -100,42 +103,11 @@ const ScoreSamples = () => {
                 >
                   <SiSoundcloud className="w-5 h-5" />
                 </a>
-
-                <button
-                  className="text-gray-400 hover:text-white transition-colors w-8 text-center"
-                  aria-label="More options"
-                >
-                  <span className="text-xl leading-none">···</span>
-                </button>
               </div>
             </div>
           ))}
         </div>
 
-        {currentEmbed && (
-          <div className="fixed bottom-0 left-0 right-0 bg-black/60 backdrop-blur-xl border-t border-white/10 p-4 z-50 animate-fade-in shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
-            <div className="container-custom max-w-5xl mx-auto relative">
-              <button
-                onClick={() => setCurrentEmbed(null)}
-                className="absolute -top-2 right-0 text-gray-400 hover:text-white transition-colors text-2xl leading-none z-10"
-                aria-label="Close player"
-              >
-                ×
-              </button>
-              <div className="rounded-lg overflow-hidden bg-black/40 backdrop-blur-md border border-white/5" style={{ filter: "invert(0.88) hue-rotate(180deg)" }}>
-                <iframe
-                  key={currentEmbed}
-                  src={currentEmbed}
-                  width="100%"
-                  height="120"
-                  frameBorder="0"
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"
-                ></iframe>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );

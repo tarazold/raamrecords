@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { SiSpotify, SiInstagram, SiX, SiYoutube } from "react-icons/si";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -80,8 +81,8 @@ const Navigation = () => {
                 key={item.label}
                 onClick={() => scrollToSection(item.href)}
                 className={`${
-                  activeSection === item.href.substring(1) 
-                    ? "text-primary" 
+                  activeSection === item.href.substring(1)
+                    ? "text-primary"
                     : "text-foreground"
                 } hover:text-primary transition-colors cursor-pointer bg-transparent border-none text-base font-extralight`}
                 style={{ fontFamily: "'Raleway', sans-serif", letterSpacing: '0.10em' }}
@@ -97,6 +98,8 @@ const Navigation = () => {
             size="icon"
             className="md:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X /> : <Menu />}
           </Button>
@@ -111,8 +114,8 @@ const Navigation = () => {
                   key={item.label}
                   onClick={() => scrollToSection(item.href)}
                   className={`${
-                    activeSection === item.href.substring(1) 
-                      ? "text-primary" 
+                    activeSection === item.href.substring(1)
+                      ? "text-primary"
                       : "text-foreground"
                   } hover:text-primary transition-colors text-left cursor-pointer bg-transparent border-none text-base py-2 font-extralight`}
                   style={{ fontFamily: "'Raleway', sans-serif", letterSpacing: '0.10em' }}
@@ -120,6 +123,20 @@ const Navigation = () => {
                   {item.label}
                 </button>
               ))}
+              <div className="flex items-center gap-6 pt-4 mt-2 border-t border-white/10">
+                <a href="https://open.spotify.com/artist/2u9drGMWG4VhfZ3tJTvAn4" target="_blank" rel="noopener noreferrer" aria-label="Spotify" className="text-white/60 hover:text-primary transition-colors">
+                  <SiSpotify className="w-5 h-5" />
+                </a>
+                <a href="https://www.instagram.com/_raam96/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-white/60 hover:text-primary transition-colors">
+                  <SiInstagram className="w-5 h-5" />
+                </a>
+                <a href="https://twitter.com/raam_records" target="_blank" rel="noopener noreferrer" aria-label="X" className="text-white/60 hover:text-primary transition-colors">
+                  <SiX className="w-5 h-5" />
+                </a>
+                <a href="https://www.youtube.com/@raam-records" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-white/60 hover:text-primary transition-colors">
+                  <SiYoutube className="w-5 h-5" />
+                </a>
+              </div>
             </div>
           </div>
         )}
