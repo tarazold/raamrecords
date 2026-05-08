@@ -1,6 +1,6 @@
-import { Play } from "lucide-react";
+import { Play, Music2 as SiAmazonmusic } from "lucide-react";
 import { useState } from "react";
-import { SiSpotify, SiYoutube, SiAmazonmusic, SiApplemusic } from "react-icons/si";
+import { SiSpotify, SiYoutube, SiApplemusic } from "react-icons/si";
 
 const MusicPortfolio = () => {
   const [currentEmbed, setCurrentEmbed] = useState<string | null>(null);
