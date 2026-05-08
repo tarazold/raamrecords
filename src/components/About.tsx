@@ -29,17 +29,24 @@ const About = () => {
           <div className="animate-fade-in-slow order-1 md:order-2">
             <div className="space-y-5 text-gray-300 text-base md:text-lg leading-relaxed font-light">
               <p>
-                Sriram Venkatesh is a Music Producer, Composer, and Sound Engineer from Chennai, India,
-                with over a decade of experience in the film and independent music industry. A certified
-                Music Producer from Beatfactory Academy, Mumbai, he has worked on film scores, commercials,
-                and independent projects that blend classical composition with modern production.
+                Sriram Venkatesh is a Music Producer, Composer, and Sound Engineer from Chennai, with over
+                a decade of experience in the film and independent music industry. A certified Music Producer
+                from Beatfactory Academy, he has worked on film scores, commercials, and independent projects
+                that blend classical composition with modern production.
               </p>
               <p>
                 In 2022, he launched his independent label,{" "}
                 <strong className="text-white font-normal">Raam Records</strong>,
-                featuring his original releases now streaming across all major platforms. Sriram's music stands
-                out for its emotional depth, technical precision, and a distinctive sound that bridges tradition
-                and innovation.
+                featuring his original releases now streaming across major platforms.
+              </p>
+              <p>
+                He worked on the film score for <em className="not-italic text-white/90">Sorry Day</em> alongside
+                Samrat Awasthi, and is currently awaiting the release of his debut Tamil feature film{" "}
+                <em className="not-italic text-white/90">Eerapatham Kattrum Mazhai</em> later this year.
+              </p>
+              <p>
+                Sriram's music stands out for its emotional depth, technical precision, and a distinctive
+                sound that bridges tradition and innovation.
               </p>
             </div>
           </div>
