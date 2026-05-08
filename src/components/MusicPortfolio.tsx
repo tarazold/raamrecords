@@ -3,7 +3,7 @@ import { useState } from "react";
 import { SiSpotify, SiYoutube, SiApplemusic } from "react-icons/si";
 
 const MusicPortfolio = () => {
-  const [currentEmbed, setCurrentEmbed] = useState<string | null>(null);
+  const [currentEmbed, setCurrentEmbed] = useState<{ url: string; title: string } | null>(null);
 
   const tracks = [
     {
@@ -68,21 +68,21 @@ const MusicPortfolio = () => {
     },
   ];
 
-  const handlePreviewPlay = (embedUrl: string) => {
-    setCurrentEmbed(embedUrl);
+  const handlePreviewPlay = (embedUrl: string, title: string) => {
+    setCurrentEmbed({ url: embedUrl, title });
   };
 
   return (
     <section id="music" className="section-padding bg-black">
       <div className="container-custom max-w-6xl">
-        <h2 
+        <h2
           className="text-4xl md:text-5xl font-extralight mb-4 text-center text-white"
           style={{ fontFamily: "'Raleway', sans-serif", letterSpacing: '0.15em' }}
         >
           ORIGINAL SINGLES
         </h2>
         <div className="w-24 h-0.5 bg-white mx-auto mb-16"></div>
-        
+
         {/* Tracks List */}
         <div className="max-w-5xl mx-auto space-y-0 animate-fade-in pb-32">
           {tracks.map((track, index) => (
@@ -92,10 +92,10 @@ const MusicPortfolio = () => {
             >
               {/* Track Info - Left */}
               <div className="flex-1">
-                <h3 
+                <h3
                   className="text-4xl md:text-5xl font-extralight mb-2 tracking-tight text-white transition-all duration-300 hover:scale-[1.03] inline-block"
-                  style={{ 
-                    fontFamily: "'Raleway', sans-serif", 
+                  style={{
+                    fontFamily: "'Raleway', sans-serif",
                     letterSpacing: '0.10em',
                     filter: 'drop-shadow(0 0 0px rgba(0,0,0,0))',
                     cursor: 'default'
@@ -118,7 +118,7 @@ const MusicPortfolio = () => {
               <div className="flex items-center gap-5 flex-shrink-0 ml-6">
                 {/* Preview Play Button - FIRST */}
                 <button
-                  onClick={() => handlePreviewPlay(track.embedUrl)}
+                  onClick={() => handlePreviewPlay(track.embedUrl, track.title)}
                   className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all border border-white/20"
                   aria-label={`Play preview of ${track.title}`}
                 >
@@ -168,14 +168,6 @@ const MusicPortfolio = () => {
                 >
                   <SiAmazonmusic className="w-5 h-5" />
                 </a>
-
-                {/* More Options */}
-                <button
-                  className="text-gray-400 hover:text-white transition-colors w-8 text-center"
-                  aria-label="More options"
-                >
-                  <span className="text-xl leading-none">···</span>
-                </button>
               </div>
             </div>
           ))}
@@ -183,24 +175,42 @@ const MusicPortfolio = () => {
 
         {/* Sticky Embedded Player */}
         {currentEmbed && (
-          <div className="fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-sm border-t border-white/10 p-4 z-50 animate-fade-in">
-            <div className="container-custom max-w-5xl mx-auto relative">
-              <button
-                onClick={() => setCurrentEmbed(null)}
-                className="absolute -top-2 right-0 text-gray-400 hover:text-white transition-colors text-2xl leading-none"
-                aria-label="Close player"
-              >
-                ×
-              </button>
+          <div className="fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-lg border-t border-white/10 z-50 animate-fade-in shadow-[0_-10px_40px_rgba(0,0,0,0.6)]">
+            <div className="container-custom max-w-5xl mx-auto px-6 py-4">
+              <div className="flex items-center justify-between gap-4 mb-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <span
+                    className="text-[10px] font-extralight uppercase text-gray-500 tracking-[0.3em] hidden sm:inline"
+                    style={{ fontFamily: "'Raleway', sans-serif" }}
+                  >
+                    Now Playing
+                  </span>
+                  <span className="text-gray-600 hidden sm:inline">·</span>
+                  <span
+                    className="text-sm font-extralight uppercase text-white tracking-[0.2em] truncate"
+                    style={{ fontFamily: "'Raleway', sans-serif" }}
+                  >
+                    {currentEmbed.title}
+                  </span>
+                </div>
+                <button
+                  onClick={() => setCurrentEmbed(null)}
+                  className="text-gray-400 hover:text-white transition-colors flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10"
+                  aria-label="Close player"
+                >
+                  <span className="text-xl leading-none">×</span>
+                </button>
+              </div>
               <iframe
-                key={currentEmbed}
-                src={currentEmbed}
+                key={currentEmbed.url}
+                src={currentEmbed.url}
                 width="100%"
                 height="152"
                 frameBorder="0"
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"
                 className="rounded-lg"
+                title={`${currentEmbed.title} player`}
               ></iframe>
             </div>
           </div>

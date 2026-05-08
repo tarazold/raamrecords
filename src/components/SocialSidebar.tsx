@@ -29,7 +29,7 @@ const SocialSidebar = () => {
   ];
 
   return (
-    <div className="fixed right-6 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-6">
+    <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col gap-6">
       {socialLinks.map((social, index) => (
         <a
           key={index}
@@ -37,12 +37,12 @@ const SocialSidebar = () => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={social.label}
-          className={`text-white/60 transition-all duration-300 ${social.color} hover:scale-110`}
+          className={`text-white/50 transition-all duration-300 ${social.color} hover:scale-110`}
         >
-          <social.icon className="w-5 h-5" />
+          <social.icon className="w-[18px] h-[18px]" />
         </a>
       ))}
-      <div className="w-[1px] h-12 bg-white/20 mx-auto mt-2" />
+      <div className="w-px h-12 bg-white/15 mx-auto mt-2" />
     </div>
   );
 };
