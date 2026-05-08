@@ -8,12 +8,12 @@ const ScoreSamples = () => {
   const tracks = [
     {
       title: "RAPAAN KUTHU",
-      url: "https://soundcloud.com/raamrecords21/rapaan-kuthu",
+      url: "https://soundcloud.com/raamrecords21/rapankuthu",
       shareUrl: "https://on.soundcloud.com/UWnXZss4Z5bfZdGbXw",
     },
     {
       title: "THE NINTH HYMN",
-      url: "https://soundcloud.com/raamrecords21/the-ninth-hymn",
+      url: "https://soundcloud.com/raamrecords21/the-antagonist",
       shareUrl: "https://on.soundcloud.com/V63S9RV2AuVsDvtgGx",
     },
     {
@@ -29,7 +29,7 @@ const ScoreSamples = () => {
     },
     {
       title: "IN HER MEMORIES",
-      url: "https://soundcloud.com/raamrecords21/in-her-memories",
+      url: "https://soundcloud.com/raamrecords21/her-memories",
       shareUrl: "https://on.soundcloud.com/TSdQHqiUpaWrsSFXqO",
     },
   ];
