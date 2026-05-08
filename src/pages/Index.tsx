@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import MusicPortfolio from "@/components/MusicPortfolio";
+import ScoreSamples from "@/components/ScoreSamples";
 import About from "@/components/About";
 import FilmShowcase from "@/components/FilmShowcase";
 import Contact from "@/components/Contact";
@@ -13,6 +14,7 @@ const Index = () => {
       <SocialSidebar />
       <Hero />
       <MusicPortfolio />
+      <ScoreSamples />
       <About />
       <FilmShowcase />
       <Contact />
