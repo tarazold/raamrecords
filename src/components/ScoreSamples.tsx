@@ -37,7 +37,7 @@ const ScoreSamples = () => {
   const buildEmbed = (trackUrl: string) =>
     `https://w.soundcloud.com/player/?url=${encodeURIComponent(
       trackUrl
-    )}&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&visual=false&color=%23ffffff`;
+    )}&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&color=%23ffffff`;
 
   const handlePreviewPlay = (trackUrl: string) => {
     setCurrentEmbed(buildEmbed(trackUrl));
@@ -113,25 +113,26 @@ const ScoreSamples = () => {
         </div>
 
         {currentEmbed && (
-          <div className="fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-sm border-t border-white/10 p-4 z-50 animate-fade-in">
+          <div className="fixed bottom-0 left-0 right-0 bg-black/60 backdrop-blur-xl border-t border-white/10 p-4 z-50 animate-fade-in shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
             <div className="container-custom max-w-5xl mx-auto relative">
               <button
                 onClick={() => setCurrentEmbed(null)}
-                className="absolute -top-2 right-0 text-gray-400 hover:text-white transition-colors text-2xl leading-none"
+                className="absolute -top-2 right-0 text-gray-400 hover:text-white transition-colors text-2xl leading-none z-10"
                 aria-label="Close player"
               >
                 ×
               </button>
-              <iframe
-                key={currentEmbed}
-                src={currentEmbed}
-                width="100%"
-                height="152"
-                frameBorder="0"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-                className="rounded-lg"
-              ></iframe>
+              <div className="rounded-lg overflow-hidden bg-black/40 backdrop-blur-md border border-white/5" style={{ filter: "invert(0.88) hue-rotate(180deg)" }}>
+                <iframe
+                  key={currentEmbed}
+                  src={currentEmbed}
+                  width="100%"
+                  height="120"
+                  frameBorder="0"
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"
+                ></iframe>
+              </div>
             </div>
           </div>
         )}

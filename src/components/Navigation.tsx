@@ -16,7 +16,7 @@ const Navigation = () => {
   }, []);
 
   useEffect(() => {
-    const sections = ["home", "music", "about", "films", "contact"];
+    const sections = ["home", "music", "score-samples", "about", "films", "contact"];
     const observerOptions = {
       root: null,
       rootMargin: "-50% 0px -50% 0px",
@@ -45,6 +45,7 @@ const Navigation = () => {
   const navItems = [
     { label: "Home", href: "#home" },
     { label: "Original Singles", href: "#music" },
+    { label: "Score Samples", href: "#score-samples" },
     { label: "About", href: "#about" },
     { label: "Filmography", href: "#films" },
     { label: "Contact", href: "#contact" },
