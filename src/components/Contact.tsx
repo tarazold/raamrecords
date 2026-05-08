@@ -27,7 +27,7 @@ const Contact = () => {
   const socialLinks = [
     { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/_raam96/", handle: "@_raam96" },
     { icon: Twitter, label: "X (Twitter)", href: "https://twitter.com/raam_records", handle: "@raam_records" },
-    { icon: Mail, label: "Email", href: "mailto:Raam19.music@gmail.com", handle: "Raam19.music@gmail.com" },
+    { icon: Mail, label: "Email", href: "mailto:contact@raamrecords.com", handle: "contact@raamrecords.com" },
   ];
 
   return (

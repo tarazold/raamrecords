@@ -1,9 +1,12 @@
 import { Play } from "lucide-react";
-import { useState } from "react";
 import { SiSoundcloud } from "react-icons/si";
 
-const ScoreSamples = () => {
-  const [currentEmbed, setCurrentEmbed] = useState<{ url: string; title: string } | null>(null);
+interface ScoreSamplesProps {
+  currentEmbed: { url: string; title: string } | null;
+  setCurrentEmbed: (embed: { url: string; title: string } | null) => void;
+}
+
+const ScoreSamples = ({ currentEmbed, setCurrentEmbed }: ScoreSamplesProps) => {
 
   const tracks = [
     {
@@ -37,7 +40,7 @@ const ScoreSamples = () => {
   const buildEmbed = (trackUrl: string) =>
     `https://w.soundcloud.com/player/?url=${encodeURIComponent(
       trackUrl
-    )}&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&color=%23ffffff`;
+    )}&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false&color=%23ff3b7f`;
 
   const handlePreviewPlay = (trackUrl: string, title: string) => {
     setCurrentEmbed({ url: buildEmbed(trackUrl), title });
@@ -105,48 +108,6 @@ const ScoreSamples = () => {
           ))}
         </div>
 
-        {currentEmbed && (
-          <div className="fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-lg border-t border-white/10 z-50 animate-fade-in shadow-[0_-10px_40px_rgba(0,0,0,0.6)]">
-            <div className="container-custom max-w-5xl mx-auto px-6 py-4">
-              <div className="flex items-center justify-between gap-4 mb-3">
-                <div className="flex items-center gap-3 min-w-0">
-                  <span
-                    className="text-[10px] font-extralight uppercase text-gray-500 tracking-[0.3em] hidden sm:inline"
-                    style={{ fontFamily: "'Raleway', sans-serif" }}
-                  >
-                    Now Playing
-                  </span>
-                  <span className="text-gray-600 hidden sm:inline">·</span>
-                  <span
-                    className="text-sm font-extralight uppercase text-white tracking-[0.2em] truncate"
-                    style={{ fontFamily: "'Raleway', sans-serif" }}
-                  >
-                    {currentEmbed.title}
-                  </span>
-                </div>
-                <button
-                  onClick={() => setCurrentEmbed(null)}
-                  className="text-gray-400 hover:text-white transition-colors flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10"
-                  aria-label="Close player"
-                >
-                  <span className="text-xl leading-none">×</span>
-                </button>
-              </div>
-              <div className="rounded-lg overflow-hidden bg-black border border-white/10">
-                <iframe
-                  key={currentEmbed.url}
-                  src={currentEmbed.url}
-                  width="100%"
-                  height="120"
-                  frameBorder="0"
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"
-                  title={`${currentEmbed.title} player`}
-                ></iframe>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );

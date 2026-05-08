@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import MusicPortfolio from "@/components/MusicPortfolio";
@@ -9,6 +10,7 @@ import SocialSidebar from "@/components/SocialSidebar";
 import { SiSpotify, SiInstagram, SiX, SiYoutube, SiApplemusic, SiSoundcloud } from "react-icons/si";
 
 const Index = () => {
+  const [currentEmbed, setCurrentEmbed] = useState<{ url: string; title: string } | null>(null);
   const currentYear = new Date().getFullYear();
 
   const footerNav = [
@@ -33,11 +35,55 @@ const Index = () => {
       <Navigation />
       <SocialSidebar />
       <Hero />
-      <MusicPortfolio />
-      <ScoreSamples />
+      <MusicPortfolio currentEmbed={currentEmbed} setCurrentEmbed={setCurrentEmbed} />
+      <ScoreSamples currentEmbed={currentEmbed} setCurrentEmbed={setCurrentEmbed} />
       <About />
       <FilmShowcase />
       <Contact />
+
+      {/* Shared sticky player */}
+      {currentEmbed && (
+        <div className="fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-lg border-t border-white/10 z-50 animate-fade-in shadow-[0_-10px_40px_rgba(0,0,0,0.6)]">
+          <div className="container-custom max-w-5xl mx-auto px-6 py-4">
+            <div className="flex items-center justify-between gap-4 mb-3">
+              <div className="flex items-center gap-3 min-w-0">
+                <span
+                  className="text-[10px] font-extralight uppercase text-gray-500 tracking-[0.3em] hidden sm:inline"
+                  style={{ fontFamily: "'Raleway', sans-serif" }}
+                >
+                  Now Playing
+                </span>
+                <span className="text-gray-600 hidden sm:inline">·</span>
+                <span
+                  className="text-sm font-extralight uppercase text-white tracking-[0.2em] truncate"
+                  style={{ fontFamily: "'Raleway', sans-serif" }}
+                >
+                  {currentEmbed.title}
+                </span>
+              </div>
+              <button
+                onClick={() => setCurrentEmbed(null)}
+                className="text-gray-400 hover:text-white transition-colors flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10"
+                aria-label="Close player"
+              >
+                <span className="text-xl leading-none">×</span>
+              </button>
+            </div>
+            <div className="rounded-lg overflow-hidden bg-black border border-white/10">
+              <iframe
+                key={currentEmbed.url}
+                src={currentEmbed.url}
+                width="100%"
+                height={currentEmbed.url.includes("soundcloud") ? 166 : 152}
+                frameBorder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                title={`${currentEmbed.title} player`}
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="bg-black border-t border-white/10 mt-24">
@@ -103,10 +149,10 @@ const Index = () => {
                 ))}
               </div>
               <a
-                href="mailto:Raam19.music@gmail.com"
+                href="mailto:contact@raamrecords.com"
                 className="text-sm text-gray-300 hover:text-primary transition-colors font-light"
               >
-                Raam19.music@gmail.com
+                contact@raamrecords.com
               </a>
             </div>
           </div>

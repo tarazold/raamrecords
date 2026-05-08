@@ -1,9 +1,12 @@
 import { Play, Music2 as SiAmazonmusic } from "lucide-react";
-import { useState } from "react";
 import { SiSpotify, SiYoutube, SiApplemusic } from "react-icons/si";
 
-const MusicPortfolio = () => {
-  const [currentEmbed, setCurrentEmbed] = useState<{ url: string; title: string } | null>(null);
+interface MusicPortfolioProps {
+  currentEmbed: { url: string; title: string } | null;
+  setCurrentEmbed: (embed: { url: string; title: string } | null) => void;
+}
+
+const MusicPortfolio = ({ currentEmbed, setCurrentEmbed }: MusicPortfolioProps) => {
 
   const tracks = [
     {
@@ -173,48 +176,6 @@ const MusicPortfolio = () => {
           ))}
         </div>
 
-        {/* Sticky Embedded Player */}
-        {currentEmbed && (
-          <div className="fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-lg border-t border-white/10 z-50 animate-fade-in shadow-[0_-10px_40px_rgba(0,0,0,0.6)]">
-            <div className="container-custom max-w-5xl mx-auto px-6 py-4">
-              <div className="flex items-center justify-between gap-4 mb-3">
-                <div className="flex items-center gap-3 min-w-0">
-                  <span
-                    className="text-[10px] font-extralight uppercase text-gray-500 tracking-[0.3em] hidden sm:inline"
-                    style={{ fontFamily: "'Raleway', sans-serif" }}
-                  >
-                    Now Playing
-                  </span>
-                  <span className="text-gray-600 hidden sm:inline">·</span>
-                  <span
-                    className="text-sm font-extralight uppercase text-white tracking-[0.2em] truncate"
-                    style={{ fontFamily: "'Raleway', sans-serif" }}
-                  >
-                    {currentEmbed.title}
-                  </span>
-                </div>
-                <button
-                  onClick={() => setCurrentEmbed(null)}
-                  className="text-gray-400 hover:text-white transition-colors flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10"
-                  aria-label="Close player"
-                >
-                  <span className="text-xl leading-none">×</span>
-                </button>
-              </div>
-              <iframe
-                key={currentEmbed.url}
-                src={currentEmbed.url}
-                width="100%"
-                height="152"
-                frameBorder="0"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-                className="rounded-lg"
-                title={`${currentEmbed.title} player`}
-              ></iframe>
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );
