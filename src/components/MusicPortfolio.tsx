@@ -1,9 +1,12 @@
 import { Play, Music2 as SiAmazonmusic } from "lucide-react";
-import { useState } from "react";
 import { SiSpotify, SiYoutube, SiApplemusic } from "react-icons/si";
 
-const MusicPortfolio = () => {
-  const [currentEmbed, setCurrentEmbed] = useState<string | null>(null);
+interface MusicPortfolioProps {
+  currentEmbed: { url: string; title: string } | null;
+  setCurrentEmbed: (embed: { url: string; title: string } | null) => void;
+}
+
+const MusicPortfolio = ({ currentEmbed, setCurrentEmbed }: MusicPortfolioProps) => {
 
   const tracks = [
     {
@@ -68,21 +71,21 @@ const MusicPortfolio = () => {
     },
   ];
 
-  const handlePreviewPlay = (embedUrl: string) => {
-    setCurrentEmbed(embedUrl);
+  const handlePreviewPlay = (embedUrl: string, title: string) => {
+    setCurrentEmbed({ url: embedUrl, title });
   };
 
   return (
     <section id="music" className="section-padding bg-black">
       <div className="container-custom max-w-6xl">
-        <h2 
+        <h2
           className="text-4xl md:text-5xl font-extralight mb-4 text-center text-white"
           style={{ fontFamily: "'Raleway', sans-serif", letterSpacing: '0.15em' }}
         >
           ORIGINAL SINGLES
         </h2>
         <div className="w-24 h-0.5 bg-white mx-auto mb-16"></div>
-        
+
         {/* Tracks List */}
         <div className="max-w-5xl mx-auto space-y-0 animate-fade-in pb-32">
           {tracks.map((track, index) => (
@@ -92,10 +95,10 @@ const MusicPortfolio = () => {
             >
               {/* Track Info - Left */}
               <div className="flex-1">
-                <h3 
+                <h3
                   className="text-4xl md:text-5xl font-extralight mb-2 tracking-tight text-white transition-all duration-300 hover:scale-[1.03] inline-block"
-                  style={{ 
-                    fontFamily: "'Raleway', sans-serif", 
+                  style={{
+                    fontFamily: "'Raleway', sans-serif",
                     letterSpacing: '0.10em',
                     filter: 'drop-shadow(0 0 0px rgba(0,0,0,0))',
                     cursor: 'default'
@@ -118,7 +121,7 @@ const MusicPortfolio = () => {
               <div className="flex items-center gap-5 flex-shrink-0 ml-6">
                 {/* Preview Play Button - FIRST */}
                 <button
-                  onClick={() => handlePreviewPlay(track.embedUrl)}
+                  onClick={() => handlePreviewPlay(track.embedUrl, track.title)}
                   className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all border border-white/20"
                   aria-label={`Play preview of ${track.title}`}
                 >
@@ -168,43 +171,11 @@ const MusicPortfolio = () => {
                 >
                   <SiAmazonmusic className="w-5 h-5" />
                 </a>
-
-                {/* More Options */}
-                <button
-                  className="text-gray-400 hover:text-white transition-colors w-8 text-center"
-                  aria-label="More options"
-                >
-                  <span className="text-xl leading-none">···</span>
-                </button>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Sticky Embedded Player */}
-        {currentEmbed && (
-          <div className="fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-sm border-t border-white/10 p-4 z-50 animate-fade-in">
-            <div className="container-custom max-w-5xl mx-auto relative">
-              <button
-                onClick={() => setCurrentEmbed(null)}
-                className="absolute -top-2 right-0 text-gray-400 hover:text-white transition-colors text-2xl leading-none"
-                aria-label="Close player"
-              >
-                ×
-              </button>
-              <iframe
-                key={currentEmbed}
-                src={currentEmbed}
-                width="100%"
-                height="152"
-                frameBorder="0"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-                className="rounded-lg"
-              ></iframe>
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );
