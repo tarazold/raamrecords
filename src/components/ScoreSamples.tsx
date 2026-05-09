@@ -35,6 +35,11 @@ const ScoreSamples = ({ currentEmbed, setCurrentEmbed }: ScoreSamplesProps) => {
       url: "https://soundcloud.com/raamrecords21/her-memories",
       shareUrl: "https://on.soundcloud.com/TSdQHqiUpaWrsSFXqO",
     },
+    {
+      title: "DARK IMPULSE",
+      url: "https://soundcloud.com/raamrecords21/dark-impulse",
+      shareUrl: "https://on.soundcloud.com/hh87Rs0VBxCZ9RW6QR",
+    },
   ];
 
   const buildEmbed = (trackUrl: string) =>
