@@ -9,15 +9,40 @@ import Magnetic from "@/components/fx/Magnetic";
 
 const Contact = () => {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "", website: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thanks for reaching out. I'll get back to you soon.",
-    });
-    setFormData({ name: "", email: "", message: "" });
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("The message could not be sent.");
+      }
+
+      toast({
+        title: "Message Sent!",
+        description: "Thanks for reaching out. I'll get back to you soon.",
+      });
+      setFormData({ name: "", email: "", message: "", website: "" });
+    } catch {
+      toast({
+        variant: "destructive",
+        title: "Message not sent",
+        description: "Please try again, or email contact@raamrecords.com directly.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const socialLinks = [
@@ -39,6 +64,18 @@ const Contact = () => {
           {/* Form */}
           <Reveal className="md:col-span-7">
             <form onSubmit={handleSubmit} className="space-y-14">
+              <div className="absolute -left-[9999px]" aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input
+                  id="website"
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={formData.website}
+                  onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                />
+              </div>
               <div className="grid sm:grid-cols-2 gap-x-12 gap-y-14">
                 <div>
                   <label
@@ -49,9 +86,13 @@ const Contact = () => {
                   </label>
                   <input
                     id="name"
+                    name="name"
+                    autoComplete="name"
                     placeholder="Jane Doe"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    minLength={2}
+                    maxLength={100}
                     required
                     className={fieldClass}
                   />
@@ -65,10 +106,13 @@ const Contact = () => {
                   </label>
                   <input
                     id="email"
+                    name="email"
                     type="email"
+                    autoComplete="email"
                     placeholder="jane@studio.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    maxLength={254}
                     required
                     className={fieldClass}
                   />
@@ -83,10 +127,13 @@ const Contact = () => {
                 </label>
                 <textarea
                   id="message"
+                  name="message"
                   placeholder="Tell me about your film, your track, your idea..."
                   rows={4}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  minLength={10}
+                  maxLength={5000}
                   required
                   className={`${fieldClass} resize-none`}
                 />
@@ -95,11 +142,13 @@ const Contact = () => {
               <Magnetic>
                 <button
                   type="submit"
+                  disabled={isSubmitting}
+                  aria-busy={isSubmitting}
                   data-cursor="hover"
-                  className="group relative overflow-hidden border border-[var(--gold)] text-gold px-12 h-16 text-[11px] uppercase tracking-[0.3em] font-medium transition-colors duration-500 hover:text-[var(--ink)] flex items-center gap-3"
+                  className="group relative overflow-hidden border border-[var(--gold)] text-gold px-12 h-16 text-[11px] uppercase tracking-[0.3em] font-medium transition-colors duration-500 hover:text-[var(--ink)] flex items-center gap-3 disabled:cursor-wait disabled:opacity-60"
                 >
                   <span className="absolute inset-0 bg-[var(--gold)] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-                  <span className="relative">Send Message</span>
+                  <span className="relative">{isSubmitting ? "Sending..." : "Send Message"}</span>
                   <ArrowUpRight className="relative w-4 h-4 transition-transform duration-500 group-hover:rotate-45" />
                 </button>
               </Magnetic>
