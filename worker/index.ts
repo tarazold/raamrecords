@@ -1,5 +1,6 @@
 const CONTACT_EMAIL = "contact@raamrecords.com";
 const SENDER_EMAIL = "website@raamrecords.com";
+const RESEND_API_URL = "https://api.resend.com/emails";
 const MAX_BODY_BYTES = 12_000;
 
 type ContactSubmission = {
@@ -42,6 +43,15 @@ const escapeHtml = (value: string) =>
         "'": "&#039;",
       })[character] ?? character,
   );
+
+const getResendError = (value: unknown) => {
+  if (!value || typeof value !== "object") return "Unknown Resend error";
+
+  const error = value as Record<string, unknown>;
+  const name = typeof error.name === "string" ? error.name : "Resend error";
+  const message = typeof error.message === "string" ? error.message : "No error message returned";
+  return `${name}: ${message}`.slice(0, 500);
+};
 
 const readRequestBody = async (request: Request) => {
   const contentLength = Number(request.headers.get("Content-Length") ?? 0);
@@ -123,16 +133,43 @@ const handleContactSubmission = async (request: Request, env: Env) => {
   const safeMessage = escapeHtml(message).replace(/\r?\n/g, "<br />");
 
   try {
-    const result = await env.EMAIL.send({
-      to: CONTACT_EMAIL,
-      from: { email: SENDER_EMAIL, name: "Raam Records Website" },
-      replyTo: { email, name },
-      subject: `New project inquiry from ${name}`,
-      text: `New project inquiry\n\nName: ${name}\nEmail: ${email}\n\nProject:\n${message}`,
-      html: `<h1>New project inquiry</h1><p><strong>Name:</strong> ${safeName}</p><p><strong>Email:</strong> ${safeEmail}</p><p><strong>Project:</strong></p><p>${safeMessage}</p>`,
+    const response = await fetch(RESEND_API_URL, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+        "Idempotency-Key": `contact-${crypto.randomUUID()}`,
+      },
+      body: JSON.stringify({
+        from: `Raam Records Website <${SENDER_EMAIL}>`,
+        to: [CONTACT_EMAIL],
+        reply_to: email,
+        subject: `New project inquiry from ${name}`,
+        text: `New project inquiry\n\nName: ${name}\nEmail: ${email}\n\nProject:\n${message}`,
+        html: `<h1>New project inquiry</h1><p><strong>Name:</strong> ${safeName}</p><p><strong>Email:</strong> ${safeEmail}</p><p><strong>Project:</strong></p><p>${safeMessage}</p>`,
+      }),
+      signal: AbortSignal.timeout(10_000),
     });
 
-    console.log(JSON.stringify({ event: "contact_email_sent", messageId: result.messageId }));
+    const result: unknown = await response.json().catch(() => null);
+    if (!response.ok) {
+      console.error(
+        JSON.stringify({
+          event: "contact_email_rejected",
+          status: response.status,
+          error: getResendError(result),
+          requestId: request.headers.get("CF-Ray"),
+        }),
+      );
+      return jsonResponse({ error: "The message could not be sent. Please try again." }, 502);
+    }
+
+    const messageId =
+      result && typeof result === "object" && "id" in result && typeof result.id === "string"
+        ? result.id
+        : null;
+
+    console.log(JSON.stringify({ event: "contact_email_sent", messageId }));
     return jsonResponse({ ok: true }, 200);
   } catch (error) {
     const emailError = error instanceof Error ? error : new Error("Unknown email error");
