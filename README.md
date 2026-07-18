@@ -34,9 +34,25 @@ Cloudflare uploads the `dist` directory and uses `single-page-application` fallb
 
 ## Contact form email
 
-The `/api/contact` Worker endpoint sends form submissions to `contact@raamrecords.com` from `website@raamrecords.com`.
+The `/api/contact` Worker endpoint sends form submissions through Resend to `contact@raamrecords.com` from `website@raamrecords.com`.
 
-Before the first production deployment, onboard `raamrecords.com` in **Cloudflare Dashboard → Compute → Email Service → Email Sending**. The `contact@raamrecords.com` address must also route to a mailbox that is monitored.
+Before the first production deployment:
+
+1. Add and verify `raamrecords.com` in the Resend dashboard.
+2. Create a Resend API key with sending access.
+3. Store the key as an encrypted Cloudflare Worker secret:
+
+```sh
+npx wrangler secret put RESEND_API_KEY
+```
+
+For local Worker development, place the key in an uncommitted `.dev.vars` file:
+
+```dotenv
+RESEND_API_KEY="re_your_api_key"
+```
+
+The `contact@raamrecords.com` address must route to a mailbox that is monitored.
 
 Deploy the site and contact endpoint together with:
 
