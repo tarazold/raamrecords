@@ -110,8 +110,12 @@ const ScoreSamples = ({ currentEmbed, setCurrentEmbed }: ScoreSamplesProps) => {
                     >
                       <SiSoundcloud className="w-[18px] h-[18px]" />
                     </a>
-                    <span
-                      className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-500 ${
+                    <button
+                      type="button"
+                      aria-label={`Play ${track.title}`}
+                      data-cursor-label="Play"
+                      onClick={() => setCurrentEmbed({ url: buildEmbed(track.url), title: track.title })}
+                      className={`w-10 h-10 rounded-full border flex items-center justify-center cursor-pointer transition-all duration-500 ${
                         isPlaying
                           ? "border-[var(--gold)] bg-[var(--gold)]"
                           : "border-white/20 group-hover:border-[var(--gold)] group-hover:bg-[var(--gold)]"
@@ -123,7 +127,7 @@ const ScoreSamples = ({ currentEmbed, setCurrentEmbed }: ScoreSamplesProps) => {
                         }`}
                         fill="currentColor"
                       />
-                    </span>
+                    </button>
                   </div>
                 </div>
               </Reveal>
